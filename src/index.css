@@ -1,0 +1,14 @@
+body{
+    display:block;
+    border:solid;
+    color: black;
+    border-radius:5px;
+    margin:100px;
+    padding:50px;
+}
+img{
+    align-items: left
+}
+h1{
+    align-items: center;
+}
