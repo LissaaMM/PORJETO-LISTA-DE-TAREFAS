@@ -1,32 +1,31 @@
-import React, { useState } from 'react';
+import './style.css'
+import React, { useState } from 'react'
 
-const ListaTarefas = () => {
-  const [tarefa, setTarefa] = useState('');
-  const [lista, setLista] = useState([]);
+export default function ListaTarefas(){
+  const [tarefas, setTarefas] = useState([])
+  const [novaTarefa, setNovaTarefa] = useState('')
 
-  const adicionarTarefa = () => {
-    if (tarefa.trim()) {
-      setLista([...lista, tarefa]);
-      setTarefa('');
+  function adicionarTarefa(){
+    if (novaTarefa.trim() !== '') {
+      setTarefas([...tarefas, novaTarefa])
+      setNovaTarefa('')
     }
-  };
+  }
 
-  return (
-    <div>
-      <input 
-        type="text" 
-        value={tarefa} 
-        onChange={(e) => setTarefa(e.target.value)} 
-        placeholder="Digite sua tarefa"
+  return(
+    <div className="container">
+      <h1>📝Lista de Tarefas</h1>
+      <input
+        value={novaTarefa}
+        onChange={(e) => setNovaTarefa(e.target.value)}
+        placeholder='Nova tarefa'
       />
-      <button onClick={adicionarTarefa}>Adicionar</button>
+      <button className='botao' onClick={adicionarTarefa}>Adicionar</button>
       <ul>
-        {lista.map((item, index) => (
-          <li key={index}>{item}</li>
+        {tarefas.map((tarefa, index) => (
+          <li key={index}>{tarefa}</li>
         ))}
       </ul>
     </div>
-  );
-};
-
-export default ListaTarefas;
+  )
+}
