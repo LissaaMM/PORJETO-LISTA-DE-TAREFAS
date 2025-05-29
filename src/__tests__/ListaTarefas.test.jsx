@@ -1,33 +1,27 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import ListaTarefas from '../components/ListaTarefas';
+import { render, screen, fireEvent } from '@testing-library/react'
+import ListaTarefas from '../components/ListaTarefas/ListaTarefas.jsx'
+import React from 'react'; 
 
+describe('Lista de Tarefas', () => {
 
-describe('ListaTarefas Component', () => {
-  test('Renderiza input e botão corretamente', () => {
-    render(
-        <ListaTarefas />
-    );
+    test('renderiza input e botão corretamente', () => {
+        render(<ListaTarefas />)
 
-    expect(screen.getByPlaceholderText('Digite sua tarefa')).toBeInTheDocument();
-    expect(screen.getByText('Adicionar')).toBeInTheDocument();
-  });
+        const input = screen.getByPlaceholderText('Nova tarefa')
+        expect(input).toBeInTheDocument()
 
-  test('Adiciona tarefa corretamente à lista', () => {
-    render(
-     
-        <ListaTarefas />
-  
-    );
+        const addButton = screen.getByText('Adicionar')
+        expect(addButton).toBeInTheDocument()
+    })
 
-    const input = screen.getByPlaceholderText('Digite sua tarefa');
-    const botao = screen.getByText('Adicionar');
+    test('adiciona tarefa à lista', () => {
+        render(<ListaTarefas />);
 
-    expect(screen.queryByText('Nova tarefa')).not.toBeInTheDocument();
+        fireEvent.change(screen.getByPlaceholderText('Nova tarefa'), {
+            target: { value: 'Estudar React' }
+        });
+        fireEvent.click(screen.getByText('Adicionar'));
 
-    fireEvent.change(input, { target: { value: 'Nova tarefa' } });
-    fireEvent.click(botao);
-
-    expect(screen.getByText('Nova tarefa')).toBeInTheDocument();
-  });
-});
+        expect(screen.getByText('Estudar React')).toBeInTheDocument();
+    })
+})
